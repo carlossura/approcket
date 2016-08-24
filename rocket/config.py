@@ -38,8 +38,10 @@ LOG_LEVEL = logging.INFO
 # DAEMON CONFIGURATION 
 # This provides configuration for running AppRocket replicator (station.py) in daemon mode 
 # (using -d command-line switch).
-LOGFILE = '/var/log/approcket.log'
-PIDFILE = '/var/run/approcket.pid'
+#LOGFILE = '/var/log/approcket.log'
+#PIDFILE = '/var/run/approcket.pid'
+DAEMON_LOG = '/var/log/approcket.log'
+DAEMON_PID = '/var/run/approcket.pid'
 GID = 103
 UID = 103
 
