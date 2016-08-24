@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+# Environment: Windows 10 - 64 bits
+# Python Version: 2.7
+# FIX: http://stackoverflow.com/questions/21740359/python-mysqldb-typeerror-not-all-arguments-converted-during-string-formatting
 
 import urllib, logging,base64
 from datetime import timedelta
@@ -326,7 +328,8 @@ class ReplicationService(Service):
                 # retrieve lists
                 for field_name, field_type in table.list_fields.items():
                     if (not send_fields or field_name in send_fields) and (not field_name in send_fields_exclude):
-                        cur.execute('select %s from %s_%s where %s = ' % (field_name, table_name, field_name, table_key_field) + """%s""", (key))
+                        #cur.execute('select %s from %s_%s where %s = ' % (field_name, table_name, field_name, table_key_field) + """%s""", (key)) list of the objects to be converted, therefore let's use [key]
+                        cur.execute('select %s from %s_%s where %s = ' % (field_name, table_name, field_name, table_key_field) + """%s""", [key])
                         
                         items = []
                         for item in cur.fetchall():
@@ -486,7 +489,8 @@ class ReplicationService(Service):
                 elif is_list:
                     list_table_name = '%s_%s' % (table_name, field_name)
                     sql = 'DELETE FROM ' + list_table_name + ' WHERE ' +  table_key_field + """ = %s"""
-                    cur.execute(sql, (key))
+                    #cur.execute(sql, (key)) list of the objects to be converted, therefore let's use [key]
+                    cur.execute(sql, [key])
                     for item in field:
                         sql = 'INSERT INTO ' + list_table_name + ' (' + table_key_field + ',' + field_name + """) VALUES (%s, %s)"""
                         cur.execute(sql, (key, self.rocket_to_mysql(field_type, item.text))) 
@@ -494,7 +498,8 @@ class ReplicationService(Service):
                     fields.append("`%s`" % field_name)
                     values.append(self.rocket_to_mysql(field_type, field.text))
                     
-        cur.execute("SELECT * FROM " + table_name + " WHERE " + table_key_field + """ = %s""", (key))
+        #cur.execute("SELECT * FROM " + table_name + " WHERE " + table_key_field + """ = %s""", (key)) list of the objects to be converted, therefore let's use [key]
+        cur.execute("SELECT * FROM " + table_name + " WHERE " + table_key_field + """ = %s""", [key])
         if cur.fetchone():
             # record already exist
             if len(fields) > 0:

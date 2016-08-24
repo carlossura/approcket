@@ -26,8 +26,8 @@ SEND_RETRY_COUNT = 3    # How many times AppRocket will retry sending an update 
 # MYSQL DATABASE CONFIGURATION
 DATABASE_HOST = "localhost"
 DATABASE_NAME = "approcket"
-DATABASE_USER = "approcket"
-DATABASE_PASSWORD = "approcket"
+DATABASE_USER = "root"
+DATABASE_PASSWORD = "root"
 DATABASE_PORT = 3306
 DATABASE_ENGINE = "InnoDB"
 
