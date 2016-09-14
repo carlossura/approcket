@@ -12,6 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Environment: CentOS 
+# Python Version: 2.6
+# Comments:
+# python ValueError: year=1 is before 1900; the datetime strftime() methods require year >= 1900
+# FIX: 
+# yum install libxml2-devel
+# yum install libxml++-devel
+# yum -y install python-devel libxslt-devel libffi-devel openssl-devel
+# yum -y install gcc gcc-c++ kernel-devel
+# pip install MySQL-python
+
+#Run the script as daemon:
+#python daemon.py -b
+
+
+
+
 
 
 import sys, os, logging, time
